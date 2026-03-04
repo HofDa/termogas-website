@@ -2,18 +2,31 @@
 import Section from "./Section.astro";
 
 const {
+  lang = "de",
   kicker = "Meran · Burggrafenamt",
   title = "Klimaanlagen & Heizungsservice in Meran",
   subtitle = "Fachgerechte Montage von Split- & Multisplitanlagen sowie Wartung und Service. Ein Ansprechpartner für Sommer & Winter. 🔥❄️",
   primary = { label: "Angebot anfordern", href: "#anfrage" },
   secondary = { label: "Jetzt anrufen", href: "tel:+39…" },
-  highlights = [
+  highlights,
+} = Astro.props;
+
+const fallbackHighlights = {
+  de: [
     { title: "Schnell vor Ort", text: "Meran & Umgebung" },
     { title: "Saubere Montage", text: "Leitungsführung & Kondensat" },
     { title: "Effizient", text: "Auslegung statt Bauchgefühl" },
     { title: "Wartung", text: "Hygiene & Leistung" },
   ],
-} = Astro.props;
+  it: [
+    { title: "Intervento rapido sul posto", text: "Merano e dintorni" },
+    { title: "Installazione accurata", text: "Tubazioni e scarico condensa" },
+    { title: "Efficiente", text: "Dimensionamento corretto, non a intuito" },
+    { title: "Manutenzione", text: "Igiene e prestazioni" },
+  ],
+} as const;
+
+const resolvedHighlights = highlights ?? fallbackHighlights[lang];
 ---
 
 <Section variant="loose" dividerBottom gridBg>
@@ -31,7 +44,7 @@ const {
     </div>
 
     <div class="grid gap-3 sm:grid-cols-4">
-      {highlights.map((h) => (
+      {resolvedHighlights.map((h) => (
         <div class="card">
           <p class="text-sm font-semibold">{h.title}</p>
           <p class="mt-1 text-sm text-[rgb(var(--muted))]">{h.text}</p>
