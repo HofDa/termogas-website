@@ -16,7 +16,7 @@ export const nav = {
     legal: [
       { label: "Privacy", href: "/it/privacy/" },
       { label: "Cookie", href: "/it/cookies/" },
-      { label: "Impressum", href: "/it/impressum/" }, // ja, in Südtirol kann das sinnvoll sein
+      { label: "Note legali", href: "/it/impressum/" },
     ],
   },
 

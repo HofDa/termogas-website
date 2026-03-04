@@ -44,8 +44,8 @@ export default {
   techDetails: {
     title: "Dettagli tecnici che fanno la differenza",
     items: [
-      { title: "Dimensionamento", text: "Un impianto sovradimensionato consuma di piu, fa piu rumore e lavora peggio." },
-      { title: "Silenziosita", text: "Posizionamento e antivibranti contano quanto la macchina scelta." },
+      { title: "Dimensionamento", text: "Un impianto sovradimensionato consuma di più, fa più rumore e lavora peggio." },
+      { title: "Silenziosità", text: "Posizionamento e antivibranti contano quanto la macchina scelta." },
       { title: "Efficienza", text: "La tecnologia inverter rende bene solo se installazione e utilizzo sono corretti." },
     ],
   },
@@ -72,9 +72,9 @@ export default {
   },
 
   faq: [
-    { q: "Meglio split o multisplit?", a: "Lo split e adatto al singolo ambiente; il multisplit quando devi servire piu stanze con una sola unita esterna." },
+    { q: "Meglio split o multisplit?", a: "Lo split è adatto al singolo ambiente; il multisplit quando devi servire più stanze con una sola unità esterna." },
     { q: "Ogni quanto va fatta la manutenzione?", a: "In genere una volta all'anno, soprattutto per igiene, resa e prevenzione dei cattivi odori." },
-    { q: "Perche il dimensionamento e cosi importante?", a: "Se la macchina non e adatta agli ambienti aumenta consumo, rumore e usura." },
+    { q: "Perché il dimensionamento è così importante?", a: "Se la macchina non è adatta agli ambienti aumenta consumo, rumore e usura." },
   ],
 
   cta: {

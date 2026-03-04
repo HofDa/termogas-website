@@ -7,7 +7,7 @@ type Lang = "de" | "it";
 const {
   lang = "de",
   id = "anfrage",
-  title = "Angebot anfordern",
+  title,
   subtitle,
   text,
   primaryLabel,
@@ -53,11 +53,11 @@ const copy = {
     name: "Nome",
     phone: "Telefono",
     service: "Servizio",
-    place: "Localita",
+    place: "Località",
     placePlaceholder: "Merano, Lagundo, Lana…",
     message: "Descrizione breve",
     messagePlaceholder: "es. 3 stanze, ultimo piano, soluzione silenziosa per la camera",
-    help: "Piu dettagli ci dai, piu veloce sara la risposta utile.",
+    help: "Più dettagli ci dai, più veloce sarà la risposta utile.",
     consent: "Con l'invio acconsenti al ricontatto per gestire la tua richiesta.",
     choose: "Seleziona…",
     climate: "Climatizzatore",
@@ -72,14 +72,29 @@ const copy = {
 } as const;
 
 const ui = copy[lang];
-const resolvedSubtitle =
-  subtitle ?? text ?? "Sag uns kurz, worum es geht. Wir melden uns zeitnah mit einem klaren Vorschlag.";
-const resolvedPrimaryLabel = primaryLabel ?? primary?.label ?? "Anfrage senden";
-const resolvedPhoneLabel = phoneLabel ?? secondary?.label ?? "Direkt anrufen";
+const fallback = {
+  de: {
+    title: "Angebot anfordern",
+    subtitle: "Sag uns kurz, worum es geht. Wir melden uns zeitnah mit einem klaren Vorschlag.",
+    primaryLabel: "Anfrage senden",
+    phoneLabel: "Direkt anrufen",
+  },
+  it: {
+    title: "Richiedi un preventivo",
+    subtitle: "Spiegaci in breve di cosa hai bisogno. Ti ricontattiamo con una proposta chiara.",
+    primaryLabel: "Invia richiesta",
+    phoneLabel: "Chiama direttamente",
+  },
+} as const;
+
+const resolvedTitle = title ?? fallback[lang].title;
+const resolvedSubtitle = subtitle ?? text ?? fallback[lang].subtitle;
+const resolvedPrimaryLabel = primaryLabel ?? primary?.label ?? fallback[lang].primaryLabel;
+const resolvedPhoneLabel = phoneLabel ?? secondary?.label ?? fallback[lang].phoneLabel;
 const phoneHref = secondary?.href ?? site.phoneHref;
 ---
 
-<Section id={id} title={title} subtitle={resolvedSubtitle} dividerTop>
+<Section id={id} title={resolvedTitle} subtitle={resolvedSubtitle} dividerTop>
   <div class="grid gap-6 lg:grid-cols-5">
     <div class="lg:col-span-3 card">
       <form class="stack-4" method="post" action={action}>

@@ -45,9 +45,9 @@ const ui = copy[lang];
         />
       );
     case "services":
-      return <ServicesGrid title={ui.servicesTitle} subtitle={ui.servicesSubtitle} items={pick(s.key)} />;
+      return <ServicesGrid lang={lang} title={ui.servicesTitle} subtitle={ui.servicesSubtitle} items={pick(s.key)} />;
     case "areas":
-      return <LocalAreas {...pick(s.key)} />;
+      return <LocalAreas lang={lang} {...pick(s.key)} />;
     case "process":
       return <ProcessSteps lang={lang} steps={pick(s.key)} />;
     case "faq":

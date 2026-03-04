@@ -2,17 +2,22 @@
 import Section from "./Section.astro";
 
 const {
-  id = "einsatzgebiet",
-  title = "Einsatzgebiet",
+  lang = "de",
+  id,
+  title,
   text,
 } = Astro.props as {
+  lang?: "de" | "it";
   id?: string;
   title?: string;
   text: string;
 };
+
+const resolvedId = id ?? (lang === "it" ? "zona-servita" : "einsatzgebiet");
+const resolvedTitle = title ?? (lang === "it" ? "Zona servita" : "Einsatzgebiet");
 ---
 
-<Section id={id} title={title}>
+<Section id={resolvedId} title={resolvedTitle}>
   <div class="card">
     <p class="copy">{text}</p>
   </div>

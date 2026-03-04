@@ -58,8 +58,8 @@ export default {
 
   faq: [
     { q: "Lavorate solo a Merano?", a: "No. Operiamo in Burgraviato e nelle zone vicine." },
-    { q: "Seguite sia climatizzatori sia caldaie?", a: "Si. Il sito copre entrambi i servizi principali." },
-    { q: "Posso richiedere solo la manutenzione?", a: "Si, sia per climatizzatori sia per caldaie." },
+    { q: "Seguite sia climatizzatori sia caldaie?", a: "Sì. Il sito copre entrambi i servizi principali." },
+    { q: "Posso richiedere solo la manutenzione?", a: "Sì, sia per climatizzatori sia per caldaie." },
   ],
 
   cta: {

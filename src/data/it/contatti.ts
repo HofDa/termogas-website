@@ -13,7 +13,7 @@ export default {
   cta: {
     id: "modulo-contatto",
     title: "Invia una richiesta",
-    subtitle: "Piu dettagli ci dai, piu velocemente possiamo indicarti il passo successivo corretto.",
+    subtitle: "Più dettagli ci dai, più velocemente possiamo indicarti il passo successivo corretto.",
     primaryLabel: "Invia",
     phoneLabel: "Chiama direttamente",
   },

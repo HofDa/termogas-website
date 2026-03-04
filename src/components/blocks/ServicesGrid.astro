@@ -3,15 +3,19 @@ import Section from "./Section.astro";
 
 const {
   id,
+  lang = "de",
   title = "Leistungen",
   subtitle = "Klimaanlagen-Installation, Wartung und Heizungsservice in Meran und im Burggrafenamt.",
   items = [],
 } = Astro.props as {
   id?: string;
+  lang?: "de" | "it";
   title?: string;
   subtitle?: string;
   items: Array<{ title: string; points?: string[]; text?: string; href?: string }>;
 };
+
+const moreLabel = lang === "it" ? "Scopri di più" : "Mehr";
 ---
 
 <Section id={id} title={title} subtitle={subtitle}>
@@ -23,7 +27,7 @@ const {
             <h3 class="h3">{s.title}</h3>
             {s.href && (
               <a class="text-sm font-semibold text-cool hover:underline" href={s.href}>
-                Mehr →
+                {moreLabel} →
               </a>
             )}
           </div>

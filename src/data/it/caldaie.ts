@@ -2,7 +2,7 @@ export default {
   meta: {
     title: "Assistenza caldaie a Merano | TERMOgas",
     description:
-      "Manutenzione e assistenza caldaie a Merano e in Burgraviato per sicurezza, continuita di esercizio ed efficienza.",
+      "Manutenzione e assistenza caldaie a Merano e in Burgraviato per sicurezza, continuità di esercizio ed efficienza.",
     canonical: "/it/assistenza-caldaie-merano/",
   },
 
@@ -29,7 +29,7 @@ export default {
   services: [
     {
       title: "Manutenzione periodica",
-      points: ["Pulizia e controllo funzionale", "Riduzione del rischio guasti", "Maggiore continuita di esercizio"],
+      points: ["Pulizia e controllo funzionale", "Riduzione del rischio guasti", "Maggiore continuità di esercizio"],
     },
     {
       title: "Verifica anomalie",
@@ -44,8 +44,8 @@ export default {
   techDetails: {
     title: "Cosa conta davvero nella manutenzione",
     items: [
-      { title: "Sicurezza", text: "Una manutenzione regolare riduce il rischio di fermo impianto proprio nei periodi piu freddi." },
-      { title: "Consumi", text: "Una caldaia sporca o fuori regolazione lavora peggio e puo consumare di piu." },
+      { title: "Sicurezza", text: "Una manutenzione regolare riduce il rischio di fermo impianto proprio nei periodi più freddi." },
+      { title: "Consumi", text: "Una caldaia sporca o fuori regolazione lavora peggio e può consumare di più." },
       { title: "Prevenzione", text: "Intervenire prima evita chiamate urgenti e costi concentrati in piena stagione." },
     ],
   },
@@ -72,15 +72,15 @@ export default {
   },
 
   faq: [
-    { q: "Ogni quanto va fatta la manutenzione?", a: "Di norma una volta all'anno, per mantenere sicurezza, affidabilita ed efficienza." },
-    { q: "Serve manutenzione anche se la caldaia funziona?", a: "Si, perche molte anomalie si sviluppano lentamente e si evitano con controlli regolari." },
-    { q: "La manutenzione aiuta a consumare meno?", a: "Spesso si, specialmente quando sporco o regolazioni non corrette peggiorano il rendimento." },
+    { q: "Ogni quanto va fatta la manutenzione?", a: "Di norma una volta all'anno, per mantenere sicurezza, affidabilità ed efficienza." },
+    { q: "Serve manutenzione anche se la caldaia funziona?", a: "Sì, perché molte anomalie si sviluppano lentamente e si evitano con controlli regolari." },
+    { q: "La manutenzione aiuta a consumare meno?", a: "Spesso sì, specialmente quando sporco o regolazioni non corrette peggiorano il rendimento." },
   ],
 
   cta: {
     id: "richiesta",
     title: "Richiedi assistenza caldaie a Merano",
-    text: "Scrivici due righe sull'impianto o sul problema. Ti richiamiamo con il passo successivo piu adatto.",
+    text: "Scrivici due righe sull'impianto o sul problema. Ti richiamiamo con il passo successivo più adatto.",
     primary: { label: "Invia richiesta", href: "#richiesta" },
     secondary: { label: "Chiama direttamente", href: "tel:+39…" },
   },
