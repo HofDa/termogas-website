@@ -1,0 +1,64 @@
+---
+import Hero from "./blocks/Hero.astro";
+import ServicesGrid from "./blocks/ServicesGrid.astro";
+import LocalAreas from "./blocks/LocalAreas.astro";
+import ProcessSteps from "./blocks/ProcessSteps.astro";
+import FAQ from "./blocks/FAQ.astro";
+import CTA from "./blocks/CTA.astro";
+import TechDetails from "./blocks/TechDetails.astro";
+import Checklist from "./blocks/Checklist.astro";
+
+const { content, lang = "de" } = Astro.props as {
+  content: Record<string, any>;
+  lang?: "de" | "it";
+};
+
+const pick = (key) => content[key];
+const copy = {
+  de: {
+    servicesTitle: "Leistungen",
+    servicesSubtitle: "Installation, Wartung und Service fuer Klima- und Heizsysteme in Meran und im Burggrafenamt.",
+    faqTitle: "FAQ",
+    faqSubtitle: "Kurz beantwortet, damit du schneller entscheiden kannst.",
+  },
+  it: {
+    servicesTitle: "Servizi",
+    servicesSubtitle: "Installazione, manutenzione e assistenza per climatizzatori e caldaie a Merano e in Burgraviato.",
+    faqTitle: "FAQ",
+    faqSubtitle: "Risposte brevi per capire subito il punto.",
+  },
+} as const;
+const ui = copy[lang];
+---
+
+{content.sections?.map((s) => {
+  switch (s.type) {
+    case "hero":
+      return (
+        <Hero
+          kicker={pick(s.key).eyebrow}
+          title={pick(s.key).title}
+          subtitle={pick(s.key).subtitle}
+          primary={pick(s.key).ctaPrimary}
+          secondary={pick(s.key).ctaSecondary}
+          highlights={pick(s.key).highlights}
+        />
+      );
+    case "services":
+      return <ServicesGrid title={ui.servicesTitle} subtitle={ui.servicesSubtitle} items={pick(s.key)} />;
+    case "areas":
+      return <LocalAreas {...pick(s.key)} />;
+    case "process":
+      return <ProcessSteps lang={lang} steps={pick(s.key)} />;
+    case "faq":
+      return <FAQ title={ui.faqTitle} subtitle={ui.faqSubtitle} items={pick(s.key)} />;
+    case "cta":
+      return <CTA lang={lang} {...pick(s.key)} subtitle={pick(s.key).text} />;
+    case "techDetails":
+      return <TechDetails {...pick(s.key)} />;
+    case "checklist":
+      return <Checklist {...pick(s.key)} />;
+    default:
+      return null;
+  }
+})}

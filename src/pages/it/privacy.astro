@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/layout/Header.astro";
+import Footer from "../../components/layout/Footer.astro";
+
+const meta = {
+  title: "Privacy | TERMOgas Merano",
+  description: "Informativa privacy TERMOgas – trattamento dei dati personali e contatti.",
+  canonicalPath: "/it/privacy/",
+  lang: "it",
+};
+---
+
+<BaseLayout {...meta}>
+  <Header currentLang="it" currentPath="/it/privacy/" />
+  <main class="mx-auto max-w-6xl px-4 py-10">
+    <h1 class="text-3xl font-semibold tracking-tight">Privacy</h1>
+    <p class="mt-3 text-zinc-700 dark:text-zinc-300">
+      Pagina segnaposto. Qui descriveremo: titolare del trattamento, finalità, basi giuridiche, conservazione,
+      diritti dell’interessato e contatti.
+    </p>
+
+    <div class="mt-6 rounded-2xl border border-zinc-200 bg-white/60 p-5 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/40">
+      <p class="text-sm font-semibold">Moduli di contatto</p>
+      <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+        Quali dati raccogliamo e per quanto tempo li conserviamo.
+      </p>
+    </div>
+  </main>
+  <Footer currentLang="it" />
+</BaseLayout>

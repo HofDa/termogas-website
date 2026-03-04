@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/layout/Header.astro";
+import Footer from "../../components/layout/Footer.astro";
+import PageSections from "../../components/PageSections.astro";
+import { buildSchemaGraph } from "../../lib/schema";
+import content from "../../data/de/klimaanlage";
+
+const meta = {
+  title: content.meta.title,
+  description: content.meta.description,
+  canonicalPath: "/de/klimaanlage-meran/",
+  lang: "de",
+  schemaGraph: buildSchemaGraph({
+    lang: "de",
+    service: {
+      urlPath: "/de/klimaanlage-meran/",
+      name: "Klimaanlagen Installation in Meran",
+      description:
+        "Installation von Split- und Multisplit-Klimaanlagen inkl. Auslegung, Montage, Inbetriebnahme und Wartung in Meran und im Burggrafenamt.",
+      areaServed: ["Meran", "Merano", "Burggrafenamt"],
+    },
+  }),
+};
+---
+
+<BaseLayout {...meta}>
+  <Header currentLang="de" currentPath="/de/klimaanlage-meran/" />
+  <main>
+    <PageSections content={content} lang="de" />
+  </main>
+  <Footer currentLang="de" />
+</BaseLayout>

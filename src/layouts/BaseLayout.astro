@@ -1,0 +1,29 @@
+---
+import SeoHead from "../components/SeoHead.astro";
+import "../styles/global.css";
+
+const {
+  title,
+  description,
+  canonicalPath,
+  lang = "it",
+  schemaGraph = null, // ✅ neu
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <SeoHead
+      title={title}
+      description={description}
+      canonicalPath={canonicalPath}
+      lang={lang}
+      schemaGraph={schemaGraph}
+    />
+    <!-- dark script ... -->
+  </head>
+  <body class="...">
+    <slot />
+  </body>
+</html>

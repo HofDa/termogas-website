@@ -1,0 +1,42 @@
+---
+import Section from "./Section.astro";
+
+const {
+  kicker = "Meran · Burggrafenamt",
+  title = "Klimaanlagen & Heizungsservice in Meran",
+  subtitle = "Fachgerechte Montage von Split- & Multisplitanlagen sowie Wartung und Service. Ein Ansprechpartner für Sommer & Winter. 🔥❄️",
+  primary = { label: "Angebot anfordern", href: "#anfrage" },
+  secondary = { label: "Jetzt anrufen", href: "tel:+39…" },
+  highlights = [
+    { title: "Schnell vor Ort", text: "Meran & Umgebung" },
+    { title: "Saubere Montage", text: "Leitungsführung & Kondensat" },
+    { title: "Effizient", text: "Auslegung statt Bauchgefühl" },
+    { title: "Wartung", text: "Hygiene & Leistung" },
+  ],
+} = Astro.props;
+---
+
+<Section variant="loose" dividerBottom gridBg>
+  <div class="stack-4">
+    <p class="kicker">{kicker}</p>
+
+    <div class="stack-3">
+      <h1 class="h1">{title}</h1>
+      <p class="lead measure">{subtitle}</p>
+    </div>
+
+    <div class="flex flex-wrap gap-3">
+      <a class="btn-primary" href={primary.href}>{primary.label}</a>
+      <a class="btn-ghost" href={secondary.href}>{secondary.label}</a>
+    </div>
+
+    <div class="grid gap-3 sm:grid-cols-4">
+      {highlights.map((h) => (
+        <div class="card">
+          <p class="text-sm font-semibold">{h.title}</p>
+          <p class="mt-1 text-sm text-[rgb(var(--muted))]">{h.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</Section>

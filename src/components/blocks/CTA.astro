@@ -1,0 +1,157 @@
+---
+import Section from "./Section.astro";
+import { site } from "../../content/site";
+
+type Lang = "de" | "it";
+
+const {
+  lang = "de",
+  id = "anfrage",
+  title = "Angebot anfordern",
+  subtitle,
+  text,
+  primaryLabel,
+  phoneLabel,
+  primary,
+  secondary,
+  action = "/api/lead", // später echte Route
+} = Astro.props as {
+  lang?: Lang;
+  id?: string;
+  title?: string;
+  subtitle?: string;
+  text?: string;
+  primaryLabel?: string;
+  phoneLabel?: string;
+  primary?: { label?: string };
+  secondary?: { label?: string; href?: string };
+  action?: string;
+};
+
+const copy = {
+  de: {
+    name: "Name",
+    phone: "Telefon",
+    service: "Service",
+    place: "Ort",
+    placePlaceholder: "Meran, Algund, Lana…",
+    message: "Kurzbeschreibung",
+    messagePlaceholder: "z. B. 3 Zimmer, Dachgeschoss, leise Loesung fuers Schlafzimmer",
+    help: "Je genauer, desto schneller die passende Empfehlung.",
+    consent: "Mit dem Absenden stimmst du der Kontaktaufnahme zur Bearbeitung deiner Anfrage zu.",
+    choose: "Bitte waehlen…",
+    climate: "Klimaanlage",
+    climateMaintenance: "Wartung Klimaanlage",
+    heating: "Heizung / Service",
+    heatingMaintenance: "Wartung Heizung",
+    next: "Was passiert als Naechstes?",
+    nextItems: ["Kurzer Rueckruf fuer Details", "Falls noetig: Sopralluogo vor Ort", "Transparentes Angebot"],
+    area: "Einsatzgebiet",
+    areaText: "Meran, Algund, Dorf Tirol, Schenna, Marling, Lana, Tscherms, Naturns & Umgebung.",
+  },
+  it: {
+    name: "Nome",
+    phone: "Telefono",
+    service: "Servizio",
+    place: "Localita",
+    placePlaceholder: "Merano, Lagundo, Lana…",
+    message: "Descrizione breve",
+    messagePlaceholder: "es. 3 stanze, ultimo piano, soluzione silenziosa per la camera",
+    help: "Piu dettagli ci dai, piu veloce sara la risposta utile.",
+    consent: "Con l'invio acconsenti al ricontatto per gestire la tua richiesta.",
+    choose: "Seleziona…",
+    climate: "Climatizzatore",
+    climateMaintenance: "Manutenzione climatizzatore",
+    heating: "Caldaia / Assistenza",
+    heatingMaintenance: "Manutenzione caldaia",
+    next: "Cosa succede dopo?",
+    nextItems: ["Breve richiamata per chiarire i dettagli", "Se serve: sopralluogo sul posto", "Preventivo trasparente"],
+    area: "Zona servita",
+    areaText: "Merano, Lagundo, Tirolo, Scena, Marlengo, Lana, Cermes, Naturno e dintorni.",
+  },
+} as const;
+
+const ui = copy[lang];
+const resolvedSubtitle =
+  subtitle ?? text ?? "Sag uns kurz, worum es geht. Wir melden uns zeitnah mit einem klaren Vorschlag.";
+const resolvedPrimaryLabel = primaryLabel ?? primary?.label ?? "Anfrage senden";
+const resolvedPhoneLabel = phoneLabel ?? secondary?.label ?? "Direkt anrufen";
+const phoneHref = secondary?.href ?? site.phoneHref;
+---
+
+<Section id={id} title={title} subtitle={resolvedSubtitle} dividerTop>
+  <div class="grid gap-6 lg:grid-cols-5">
+    <div class="lg:col-span-3 card">
+      <form class="stack-4" method="post" action={action}>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="stack-2">
+            <label class="label" for="name">{ui.name}</label>
+            <input class="input" id="name" name="name" autocomplete="name" required />
+          </div>
+
+          <div class="stack-2">
+            <label class="label" for="phone">{ui.phone}</label>
+            <input class="input" id="phone" name="phone" autocomplete="tel" required />
+          </div>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="stack-2">
+            <label class="label" for="service">{ui.service}</label>
+            <select class="input" id="service" name="service" required>
+              <option value="">{ui.choose}</option>
+              <option value="klimaanlage">{ui.climate}</option>
+              <option value="wartung-klima">{ui.climateMaintenance}</option>
+              <option value="heizung">{ui.heating}</option>
+              <option value="wartung-heizung">{ui.heatingMaintenance}</option>
+            </select>
+          </div>
+
+          <div class="stack-2">
+            <label class="label" for="place">{ui.place}</label>
+            <input class="input" id="place" name="place" placeholder={ui.placePlaceholder} required />
+          </div>
+        </div>
+
+        <div class="stack-2">
+          <label class="label" for="message">{ui.message}</label>
+          <textarea class="input" id="message" name="message" rows="4" placeholder={ui.messagePlaceholder}></textarea>
+          <p class="help">{ui.help}</p>
+        </div>
+
+        <!-- Honeypot (anti-spam) -->
+        <input type="text" name="company" tabindex="-1" autocomplete="off" class="hidden" />
+
+        <div class="flex flex-wrap gap-3">
+          <button class="btn-primary" type="submit">{resolvedPrimaryLabel}</button>
+          <a class="btn-ghost" href={phoneHref}>{resolvedPhoneLabel}: {site.phoneDisplay}</a>
+        </div>
+
+        <p class="fine">
+          {ui.consent}
+        </p>
+      </form>
+    </div>
+
+    <aside class="lg:col-span-2 stack-4">
+      <div class="card">
+        <p class="text-sm font-semibold">{ui.next}</p>
+        <ul class="mt-3 space-y-2 text-sm text-[rgb(var(--muted))]">
+          {ui.nextItems.map((item) => (
+            <li class="flex gap-2">
+              <span class="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-[rgb(var(--cool))]"></span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="card">
+        <p class="text-sm font-semibold">{ui.area}</p>
+        <p class="mt-2 text-sm text-[rgb(var(--muted))]">
+          {ui.areaText}
+        </p>
+      </div>
+    </aside>
+  </div>
+</Section>

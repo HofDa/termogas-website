@@ -1,0 +1,39 @@
+---
+import Section from "./Section.astro";
+
+const {
+  id = "faq",
+  title = "FAQ",
+  subtitle = "Kurz beantwortet – damit du schneller entscheiden kannst.",
+  items = [],
+  variant = "accordion", // "accordion" | "cards"
+} = Astro.props as {
+  id?: string;
+  title?: string;
+  subtitle?: string;
+  items: Array<{ q: string; a: string }>;
+  variant?: "accordion" | "cards";
+};
+---
+
+<Section id={id} title={title} subtitle={subtitle}>
+  {variant === "cards" ? (
+    <div class="faq-list">
+      {items.map((x) => (
+        <div class="faq-card">
+          <p class="q">{x.q}</p>
+          <p class="a">{x.a}</p>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div class="faq">
+      {items.map((x) => (
+        <details class="faq-item">
+          <summary class="faq-q">{x.q}</summary>
+          <div class="faq-a">{x.a}</div>
+        </details>
+      ))}
+    </div>
+  )}
+</Section>

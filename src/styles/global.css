@@ -1,0 +1,346 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+/* Tailwind v4: dark mode via class */
+@variant dark (&:where(.dark, .dark *));
+
+/* -------------------------------------------------------
+   Design Tokens (CSS variables)
+   ------------------------------------------------------- */
+:root{
+  color-scheme: light dark;
+
+  /* neutrals */
+  --bg: 255 255 255;
+  --fg: 24 24 27;          /* zinc-900 */
+  --muted: 113 113 122;    /* zinc-500 */
+  --card: 255 255 255;
+  --border: 228 228 231;   /* zinc-200 */
+
+  /* accents: warm/cool (TERMOgas 🔥❄️) */
+  --warm: 244 63 94;       /* rose-500 */
+  --cool: 59 130 246;      /* blue-500 */
+
+  /* focus ring */
+  --ring: 24 24 27;
+
+  /* radii */
+  --radius: 16px;
+
+  /* typography */
+  --font-body: "Manrope", "Segoe UI", sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+}
+
+.dark{
+  --bg: 9 9 11;            /* zinc-950 */
+  --fg: 244 244 245;       /* zinc-100 */
+  --muted: 161 161 170;    /* zinc-400 */
+  --card: 24 24 27;        /* zinc-900 */
+  --border: 39 39 42;      /* zinc-800 */
+  --ring: 244 244 245;
+}
+
+/* -------------------------------------------------------
+   Base
+   ------------------------------------------------------- */
+@layer base{
+  html{
+    @apply scroll-smooth;
+    text-rendering: optimizeLegibility;
+  }
+
+  body{
+    @apply min-h-screen antialiased;
+    background-color: rgb(var(--bg));
+    color: rgb(var(--fg));
+    font-family: var(--font-body);
+    font-feature-settings: "liga" 1, "calt" 1;
+  }
+
+  /* selection */
+  ::selection{ background: rgb(var(--cool) / 0.25); }
+
+  /* focus */
+  :focus-visible{
+    outline: 2px solid rgb(var(--ring) / 0.7);
+    outline-offset: 2px;
+    border-radius: calc(var(--radius) - 6px);
+  }
+
+  /* links baseline */
+  a{ @apply underline-offset-4; }
+
+  /* paragraphs baseline */
+  p{ @apply leading-relaxed; }
+
+  /* images */
+  img{ @apply max-w-full h-auto; }
+}
+
+/* -------------------------------------------------------
+   Components: layout, typography, surfaces, buttons
+   ------------------------------------------------------- */
+@layer components{
+  /* ========== Layout ========== */
+  .container-page{ @apply mx-auto max-w-6xl px-4; }
+
+  /* Sections */
+  .section{ @apply py-10 sm:py-14; }
+  .section-tight{ @apply py-8 sm:py-10; }
+  .section-loose{ @apply py-12 sm:py-16; }
+
+  /* Dividers */
+  .divider-b{
+    border-bottom: 1px solid rgb(var(--border));
+  }
+  .divider-t{
+    border-top: 1px solid rgb(var(--border));
+  }
+
+  /* ========== Spacing Scale (semantisch) ========== */
+  /* “Stacks” für vertikalen Rhythmus */
+  .stack-1 > * + *{ margin-top: 0.25rem; }  /* 4px */
+  .stack-2 > * + *{ margin-top: 0.5rem; }   /* 8px */
+  .stack-3 > * + *{ margin-top: 0.75rem; }  /* 12px */
+  .stack-4 > * + *{ margin-top: 1rem; }     /* 16px */
+  .stack-5 > * + *{ margin-top: 1.5rem; }   /* 24px */
+  .stack-6 > * + *{ margin-top: 2rem; }     /* 32px */
+  .stack-7 > * + *{ margin-top: 2.5rem; }   /* 40px */
+  .stack-8 > * + *{ margin-top: 3rem; }     /* 48px */
+
+  /* ========== Typography ========== */
+  .measure{ max-width: 68ch; } /* ideale Zeilenlänge */
+
+  .kicker{
+    @apply text-[0.7rem] font-extrabold uppercase tracking-[0.22em];
+    font-family: var(--font-body);
+    color: rgb(var(--muted));
+  }
+
+  .h1{
+    @apply text-4xl sm:text-6xl;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+  }
+  .h2{
+    @apply text-3xl sm:text-4xl;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+  }
+  .h3{
+    @apply text-xl sm:text-2xl;
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+  }
+
+  .lead{
+    @apply text-lg sm:text-xl;
+    font-family: var(--font-body);
+    font-weight: 500;
+    color: rgb(var(--muted));
+    line-height: 1.65;
+  }
+
+  .copy{
+    @apply text-sm sm:text-base;
+    font-family: var(--font-body);
+    font-weight: 500;
+    color: rgb(var(--muted));
+    line-height: 1.75;
+  }
+
+  .fine{
+    @apply text-xs;
+    font-family: var(--font-body);
+    font-weight: 500;
+    color: rgb(var(--muted));
+    line-height: 1.6;
+  }
+
+  .section-title{
+    @apply text-3xl sm:text-4xl;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+  }
+  .section-subtitle{
+    @apply mt-3 text-base sm:text-lg;
+    max-width: 68ch;
+    font-family: var(--font-body);
+    font-weight: 500;
+    color: rgb(var(--muted));
+    line-height: 1.7;
+  }
+
+  /* Longform / Prose (ohne typography plugin) */
+  .prose-lite{
+    @apply text-sm sm:text-base;
+    font-family: var(--font-body);
+    line-height: 1.75;
+  }
+  .prose-lite p{ @apply mt-4; }
+  .prose-lite p:first-child{ @apply mt-0; }
+  .prose-lite ul{ @apply mt-4 list-disc pl-5; }
+  .prose-lite ol{ @apply mt-4 list-decimal pl-5; }
+  .prose-lite li{ @apply mt-2; }
+  .prose-lite h2{
+    @apply mt-8 text-2xl sm:text-3xl;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.06;
+  }
+  .prose-lite h3{
+    @apply mt-6 text-xl sm:text-2xl;
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+  .prose-lite a{ @apply font-semibold hover:underline; }
+
+  /* ========== Surfaces ========== */
+  .card{
+    @apply rounded-2xl border p-5 backdrop-blur;
+    border-color: rgb(var(--border));
+    background-color: rgb(var(--card) / 0.55);
+  }
+  .card-solid{
+    @apply rounded-2xl border p-5;
+    border-color: rgb(var(--border));
+    background-color: rgb(var(--card));
+  }
+
+  .badge{
+    @apply inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold tracking-wide;
+    font-family: var(--font-body);
+    border-color: rgb(var(--border));
+    color: rgb(var(--muted));
+    background-color: rgb(var(--card) / 0.45);
+  }
+
+  /* ========== Buttons ========== */
+  .btn{
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition;
+    font-family: var(--font-body);
+    letter-spacing: -0.01em;
+  }
+
+  .btn-primary{
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white transition;
+    font-family: var(--font-body);
+    letter-spacing: -0.01em;
+    background-color: rgb(var(--fg));
+  }
+  .btn-primary:hover{ background-color: rgb(var(--fg) / 0.88); }
+
+  .btn-ghost{
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold transition;
+    font-family: var(--font-body);
+    letter-spacing: -0.01em;
+    border-color: rgb(var(--border));
+    color: rgb(var(--fg));
+    background-color: rgb(var(--card) / 0.55);
+  }
+  .btn-ghost:hover{ background-color: rgb(var(--card)); }
+
+  .btn-soft{
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold transition;
+    font-family: var(--font-body);
+    letter-spacing: -0.01em;
+    border-color: rgb(var(--border));
+    color: rgb(var(--fg));
+    background-color: rgb(var(--cool) / 0.08);
+  }
+  .btn-soft:hover{ background-color: rgb(var(--cool) / 0.12); }
+
+  /* ========== Forms (basic) ========== */
+  .input{
+    @apply w-full rounded-xl border px-4 py-3 text-sm transition;
+    border-color: rgb(var(--border));
+    background-color: rgb(var(--card) / 0.55);
+    color: rgb(var(--fg));
+  }
+  .input:focus{
+    outline: none;
+    box-shadow: 0 0 0 4px rgb(var(--cool) / 0.18);
+  }
+  .label{ @apply text-sm font-semibold; color: rgb(var(--fg)); }
+  .label{ font-family: var(--font-body); }
+  .help{ @apply text-xs; font-family: var(--font-body); color: rgb(var(--muted)); }
+
+  /* ========== FAQ ========== */
+  /* Option 1: <details> FAQ */
+  .faq{
+    @apply mt-8;
+  }
+  .faq-item{
+    @apply rounded-2xl border;
+    border-color: rgb(var(--border));
+    background-color: rgb(var(--card) / 0.45);
+  }
+  .faq-item + .faq-item{ @apply mt-3; }
+
+  .faq-q{
+    @apply flex cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left text-sm font-semibold;
+    font-family: var(--font-body);
+    color: rgb(var(--fg));
+  }
+
+  .faq-a{
+    @apply px-5 pb-5 text-sm sm:text-base;
+    font-family: var(--font-body);
+    color: rgb(var(--muted));
+    line-height: 1.75;
+  }
+
+  /* kleines Icon-Feeling ohne SVG */
+  .faq-q::after{
+    content: "+";
+    @apply shrink-0 rounded-full border px-2 py-0.5 text-xs font-bold;
+    border-color: rgb(var(--border));
+    color: rgb(var(--muted));
+  }
+  details[open] .faq-q::after{ content: "–"; }
+
+  /* Option 2: FAQ als Liste (ohne details) */
+  .faq-list{
+    @apply mt-8 grid gap-4 sm:grid-cols-2;
+  }
+  .faq-card{
+    @apply rounded-2xl border p-5 backdrop-blur;
+    border-color: rgb(var(--border));
+    background-color: rgb(var(--card) / 0.55);
+  }
+  .faq-card .q{ @apply text-sm font-semibold; font-family: var(--font-body); color: rgb(var(--fg)); }
+  .faq-card .a{ @apply mt-2 text-sm sm:text-base; font-family: var(--font-body); color: rgb(var(--muted)); line-height: 1.75; }
+}
+
+/* -------------------------------------------------------
+   Utilities: accents, subtle backgrounds
+   ------------------------------------------------------- */
+@layer utilities{
+  .text-warm{ color: rgb(var(--warm)); }
+  .text-cool{ color: rgb(var(--cool)); }
+
+  .ring-soft{ box-shadow: 0 0 0 6px rgb(var(--cool) / 0.12); }
+
+  .bg-grid{
+    background-image:
+      linear-gradient(to right, rgb(var(--border) / 0.35) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--border) / 0.35) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Warm/Cool glow (sparsam einsetzen) */
+  .glow-cool{ box-shadow: 0 0 0 1px rgb(var(--border)), 0 20px 60px rgb(var(--cool) / 0.18); }
+  .glow-warm{ box-shadow: 0 0 0 1px rgb(var(--border)), 0 20px 60px rgb(var(--warm) / 0.16); }
+}

@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/layout/Header.astro";
+import Footer from "../../components/layout/Footer.astro";
+
+const meta = {
+  title: "Impressum | TERMOgas Meran",
+  description: "Impressum von TERMOgas – Klimaanlagen & Heizungsservice in Meran und im Burggrafenamt.",
+  canonicalPath: "/de/impressum/",
+  lang: "de",
+};
+---
+
+<BaseLayout {...meta}>
+  <Header currentLang="de" currentPath="/de/impressum/" />
+  <main class="mx-auto max-w-6xl px-4 py-10">
+    <h1 class="text-3xl font-semibold tracking-tight">Impressum</h1>
+    <p class="mt-3 text-zinc-700 dark:text-zinc-300">
+      Platzhalterseite. Hier kommen die rechtlich erforderlichen Angaben (Firmenname, Adresse, MwSt.-Nr., Kontakt,
+      Haftungshinweise).
+    </p>
+
+    <div class="mt-6 rounded-2xl border border-zinc-200 bg-white/60 p-5 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/40">
+      <p class="text-sm font-semibold">Hinweis</p>
+      <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+        Sobald die finalen Firmendaten vorliegen, ersetzen wir diesen Text durch das vollständige Impressum.
+      </p>
+    </div>
+  </main>
+  <Footer currentLang="de" />
+</BaseLayout>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/layout/Header.astro";
+import Footer from "../../components/layout/Footer.astro";
+import CTA from "../../components/blocks/CTA.astro";
+import content from "../../data/de/kontakt";
+import { buildMeta } from "../../lib/seo";
+
+const meta = buildMeta({
+  title: content.meta.title,
+  description: content.meta.description,
+  canonicalPath: "/de/kontakt/",
+  lang: "de",
+});
+---
+
+<BaseLayout {...meta}>
+  <Header currentLang="de" currentPath="/de/kontakt/" />
+  <main class="section-loose">
+    <div class="container-page stack-4">
+      <p class="kicker">{content.intro.eyebrow}</p>
+      <h1 class="h1">{content.intro.title}</h1>
+      <p class="lead measure">{content.intro.subtitle}</p>
+    </div>
+    <CTA
+      lang="de"
+      id={content.cta.id}
+      title={content.cta.title}
+      subtitle={content.cta.subtitle}
+      primaryLabel={content.cta.primaryLabel}
+      phoneLabel={content.cta.phoneLabel}
+    />
+  </main>
+  <Footer currentLang="de" />
+</BaseLayout>

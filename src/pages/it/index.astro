@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/layout/Header.astro";
+import Footer from "../../components/layout/Footer.astro";
+import PageSections from "../../components/PageSections.astro";
+import content from "../../data/it/home";
+import { buildMeta } from "../../lib/seo";
+
+const meta = buildMeta({
+  title: content.meta.title,
+  description: content.meta.description,
+  canonicalPath: "/it/",
+  lang: "it",
+});
+---
+
+<BaseLayout {...meta}>
+  <Header currentLang="it" currentPath="/it/" />
+  <main>
+    <PageSections content={content} lang="it" />
+  </main>
+  <Footer currentLang="it" />
+</BaseLayout>

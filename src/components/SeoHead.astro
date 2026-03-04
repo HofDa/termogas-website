@@ -1,0 +1,42 @@
+---
+import { getAlternates } from "../lib/hreflang";
+
+const {
+  title,
+  description,
+  canonicalPath,
+  lang = "it",
+  ogImage = "/og-image.jpg",
+  schemaGraph = null, // ✅ neu: JSON-LD graph object
+} = Astro.props;
+
+const canonicalUrl = new URL(canonicalPath, Astro.site);
+const alternates = getAlternates(canonicalPath);
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="generator" content={Astro.generator} />
+<link rel="canonical" href={canonicalUrl.toString()} />
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl.toString()} />
+<meta property="og:image" content={new URL(ogImage, Astro.site).toString()} />
+<meta property="og:locale" content={lang === "de" ? "de_DE" : "it_IT"} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={new URL(ogImage, Astro.site).toString()} />
+
+{alternates.map((alternate) => (
+  <link rel="alternate" hreflang={alternate.lang} href={alternate.href} />
+))}
+
+{schemaGraph && (
+  <script type="application/ld+json">
+    {JSON.stringify(schemaGraph)}
+  </script>
+)}

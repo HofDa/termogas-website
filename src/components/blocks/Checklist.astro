@@ -1,0 +1,26 @@
+---
+import Section from "./Section.astro";
+
+const {
+  id = "checkliste",
+  title = "Checkliste",
+  bullets = [],
+} = Astro.props as {
+  id?: string;
+  title?: string;
+  bullets: string[];
+};
+---
+
+<Section id={id} title={title}>
+  <div class="card">
+    <ul class="space-y-3 text-sm text-[rgb(var(--muted))]">
+      {bullets.map((bullet) => (
+        <li class="flex gap-2">
+          <span class="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-[rgb(var(--cool))]"></span>
+          <span>{bullet}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Section>

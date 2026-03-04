@@ -1,0 +1,48 @@
+---
+type Variant = "default" | "tight" | "loose";
+
+const {
+  id,
+  kicker,
+  title,
+  subtitle,
+  variant = "default",
+  dividerTop = false,
+  dividerBottom = false,
+  gridBg = false,
+  class: className = "",
+} = Astro.props as {
+  id?: string;
+  kicker?: string;
+  title?: string;
+  subtitle?: string;
+  variant?: Variant;
+  dividerTop?: boolean;
+  dividerBottom?: boolean;
+  gridBg?: boolean;
+  class?: string;
+};
+
+const sectionClass =
+  variant === "tight" ? "section-tight" : variant === "loose" ? "section-loose" : "section";
+
+const dividerT = dividerTop ? "divider-t" : "";
+const dividerB = dividerBottom ? "divider-b" : "";
+const bg = gridBg ? "bg-grid" : "";
+---
+
+<section id={id} class={`${sectionClass} ${dividerT} ${dividerB} ${bg} ${className}`.trim()}>
+  <div class="container-page">
+    {(kicker || title || subtitle) && (
+      <header class="stack-2">
+        {kicker && <p class="kicker">{kicker}</p>}
+        {title && <h2 class="section-title">{title}</h2>}
+        {subtitle && <p class="section-subtitle">{subtitle}</p>}
+      </header>
+    )}
+
+    <div class={(kicker || title || subtitle) ? "mt-8" : ""}>
+      <slot />
+    </div>
+  </div>
+</section>

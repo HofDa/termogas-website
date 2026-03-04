@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/layout/Header.astro";
+import Footer from "../../components/layout/Footer.astro";
+import PageSections from "../../components/PageSections.astro";
+import { buildSchemaGraph } from "../../lib/schema";
+import content from "../../data/it/climatizzatori";
+
+const meta = {
+  title: content.meta.title,
+  description: content.meta.description,
+  canonicalPath: "/it/climatizzatori-merano/",
+  lang: "it",
+  schemaGraph: buildSchemaGraph({
+    lang: "it",
+    service: {
+      urlPath: "/it/climatizzatori-merano/",
+      name: "Installazione climatizzatori a Merano",
+      description:
+        "Installazione di climatizzatori split e multisplit con sopralluogo, dimensionamento, posa e manutenzione a Merano e in Burgraviato.",
+      areaServed: ["Merano", "Burgraviato"],
+    },
+  }),
+};
+---
+
+<BaseLayout {...meta}>
+  <Header currentLang="it" currentPath="/it/climatizzatori-merano/" />
+  <main>
+    <PageSections content={content} lang="it" />
+  </main>
+  <Footer currentLang="it" />
+</BaseLayout>

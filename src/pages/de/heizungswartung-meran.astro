@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/layout/Header.astro";
+import Footer from "../../components/layout/Footer.astro";
+import PageSections from "../../components/PageSections.astro";
+import { buildSchemaGraph } from "../../lib/schema";
+import content from "../../data/de/heizung";
+
+const meta = {
+  title: content.meta.title,
+  description: content.meta.description,
+  canonicalPath: "/de/heizungswartung-meran/",
+  lang: "de",
+  schemaGraph: buildSchemaGraph({
+    lang: "de",
+    service: {
+      urlPath: "/de/heizungswartung-meran/",
+      name: "Heizungswartung in Meran",
+      description:
+        "Heizungswartung, Sicherheitscheck und Service fuer Heizsysteme in Meran und im Burggrafenamt.",
+      areaServed: ["Meran", "Merano", "Burggrafenamt"],
+    },
+  }),
+};
+---
+
+<BaseLayout {...meta}>
+  <Header currentLang="de" currentPath="/de/heizungswartung-meran/" />
+  <main>
+    <PageSections content={content} lang="de" />
+  </main>
+  <Footer currentLang="de" />
+</BaseLayout>

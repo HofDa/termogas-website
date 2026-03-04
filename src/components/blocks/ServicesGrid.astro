@@ -1,0 +1,47 @@
+---
+import Section from "./Section.astro";
+
+const {
+  id,
+  title = "Leistungen",
+  subtitle = "Klimaanlagen-Installation, Wartung und Heizungsservice in Meran und im Burggrafenamt.",
+  items = [],
+} = Astro.props as {
+  id?: string;
+  title?: string;
+  subtitle?: string;
+  items: Array<{ title: string; points?: string[]; text?: string; href?: string }>;
+};
+---
+
+<Section id={id} title={title} subtitle={subtitle}>
+  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {items.map((s) => (
+      <div class="card">
+        <div class="stack-3">
+          <div class="flex items-start justify-between gap-3">
+            <h3 class="h3">{s.title}</h3>
+            {s.href && (
+              <a class="text-sm font-semibold text-cool hover:underline" href={s.href}>
+                Mehr →
+              </a>
+            )}
+          </div>
+
+          {s.text && <p class="copy">{s.text}</p>}
+
+          {s.points?.length ? (
+            <ul class="mt-1 space-y-2 text-sm text-[rgb(var(--muted))]">
+              {s.points.map((p) => (
+                <li class="flex gap-2">
+                  <span class="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-[rgb(var(--cool))]"></span>
+                  <span>{p}</span>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      </div>
+    ))}
+  </div>
+</Section>
