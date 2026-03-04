@@ -8,21 +8,24 @@
 
     <script is:inline>
       (() => {
-        const base = (document.querySelector('meta[name="astro-base"]')?.getAttribute("content") || "").replace(/\/$/, "");
-        const toLocalizedPath = (lang) => `${base}/${lang}/`.replace(/\/+/g, "/");
+        const redirectTo = (lang) => {
+          const baseUrl = new URL(window.location.href);
+          if (!baseUrl.pathname.endsWith("/")) baseUrl.pathname += "/";
+          window.location.replace(new URL(`${lang}/`, baseUrl).toString());
+        };
 
         try {
           const saved = localStorage.getItem("lang");
           if (saved === "it" || saved === "de") {
-            window.location.replace(toLocalizedPath(saved));
+            redirectTo(saved);
             return;
           }
 
           const lang = (navigator.language || "").toLowerCase();
-          if (lang.startsWith("de")) window.location.replace(toLocalizedPath("de"));
-          else window.location.replace(toLocalizedPath("it"));
+          if (lang.startsWith("de")) redirectTo("de");
+          else redirectTo("it");
         } catch {
-          window.location.replace(toLocalizedPath("it"));
+          redirectTo("it");
         }
       })();
     </script>
