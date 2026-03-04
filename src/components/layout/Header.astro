@@ -19,12 +19,17 @@ const withBase = (href: string) => {
   if (!href.startsWith("/")) return href;
   return `${base}${href}`;
 };
+const normalizePath = (path: string) => path.replace(/\/+$/, "") || "/";
+const isActivePath = (href: string) => normalizePath(currentPath) === normalizePath(href);
 ---
 
-<header class="sticky top-0 z-50 border-b border-zinc-200/70 bg-white/70 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/60">
+<header class="sticky top-0 z-50 border-b border-zinc-200/70 bg-white/85 shadow-sm backdrop-blur-md dark:border-zinc-700/70 dark:bg-zinc-950/85">
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
     <!-- Brand -->
-    <a href={withBase(`/${currentLang}/`)} class="flex items-center gap-2 font-semibold tracking-tight">
+    <a
+      href={withBase(`/${currentLang}/`)}
+      class="flex items-center gap-2 rounded-xl px-2 py-1 font-semibold tracking-tight text-zinc-900 transition hover:bg-zinc-100/80 dark:text-zinc-100 dark:hover:bg-zinc-800/70"
+    >
       <span class="inline-block h-2 w-2 rounded-full bg-zinc-900 dark:bg-white"></span>
       {site.brand}
       <span class="hidden text-sm font-normal text-zinc-600 dark:text-zinc-400 sm:inline">
@@ -37,7 +42,12 @@ const withBase = (href: string) => {
       {items.map((i) => (
         <a
           href={withBase(i.href)}
-          class="rounded-xl px-3 py-2 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-zinc-900/50"
+          class={`rounded-xl px-3 py-2 text-sm font-semibold transition ${
+            isActivePath(i.href)
+              ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
+              : "text-zinc-700 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-zinc-800/70"
+          }`}
+          aria-current={isActivePath(i.href) ? "page" : undefined}
         >
           {i.label}
         </a>
@@ -46,7 +56,7 @@ const withBase = (href: string) => {
 
     <div class="flex items-center gap-2">
       <!-- Language switch (always visible) -->
-      <div class="inline-flex overflow-hidden rounded-full border border-zinc-200 dark:border-zinc-800">
+      <div class="inline-flex overflow-hidden rounded-full border border-zinc-200 bg-white/70 shadow-sm dark:border-zinc-700 dark:bg-zinc-900/70">
         <a
           href={withBase(itHref)}
           data-lang="it"
@@ -72,7 +82,7 @@ const withBase = (href: string) => {
       <!-- Phone CTA -->
       <a
         href={site.phoneHref}
-        class="hidden rounded-xl border border-zinc-300 bg-white/60 px-4 py-2 text-sm font-semibold text-zinc-900 shadow-sm backdrop-blur transition hover:bg-white dark:border-zinc-700 dark:bg-zinc-900/40 dark:text-zinc-100 dark:hover:bg-zinc-900 md:inline-flex"
+        class="hidden rounded-xl border border-zinc-300 bg-white/70 px-4 py-2 text-sm font-semibold text-zinc-900 shadow-sm backdrop-blur transition hover:bg-white dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-100 dark:hover:bg-zinc-800/90 md:inline-flex"
       >
         {currentLang === "de" ? "Anrufen" : "Chiama"}
       </a>
@@ -81,7 +91,7 @@ const withBase = (href: string) => {
       <button
         id="menuBtn"
         type="button"
-        class="inline-flex items-center justify-center rounded-xl border border-zinc-200 bg-white/60 p-2 text-sm font-semibold text-zinc-900 shadow-sm backdrop-blur transition hover:bg-white dark:border-zinc-800 dark:bg-zinc-900/40 dark:text-zinc-100 dark:hover:bg-zinc-900 md:hidden"
+        class="inline-flex items-center justify-center rounded-xl border border-zinc-200 bg-white/70 p-2 text-sm font-semibold text-zinc-900 shadow-sm backdrop-blur transition hover:bg-white dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-100 dark:hover:bg-zinc-800/90 md:hidden"
         aria-label="Menu"
         aria-expanded="false"
         aria-controls="mobileNav"
@@ -92,20 +102,28 @@ const withBase = (href: string) => {
   </div>
 
   <!-- Mobile Nav -->
-  <div id="mobileNav" class="hidden border-t border-zinc-200/70 dark:border-zinc-800/70 md:hidden">
+  <div
+    id="mobileNav"
+    class="hidden border-t border-zinc-200/70 bg-white/95 shadow-md backdrop-blur-md transition duration-200 ease-out motion-reduce:transition-none dark:border-zinc-700/70 dark:bg-zinc-950/95 md:hidden"
+  >
     <div class="mx-auto max-w-6xl px-4 py-3">
       <nav class="grid gap-2" aria-label="Mobile Navigation">
         {items.map((i) => (
           <a
             href={withBase(i.href)}
-            class="rounded-xl px-3 py-2 text-sm font-semibold text-zinc-800 transition hover:bg-zinc-100 dark:text-zinc-100 dark:hover:bg-zinc-900/50"
+            class={`rounded-xl border px-3 py-2 text-sm font-semibold transition ${
+              isActivePath(i.href)
+                ? "border-zinc-900 bg-zinc-900 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
+                : "border-zinc-200 bg-white/70 text-zinc-800 hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-100 dark:hover:bg-zinc-800/90"
+            }`}
+            aria-current={isActivePath(i.href) ? "page" : undefined}
           >
             {i.label}
           </a>
         ))}
         <a
           href={site.phoneHref}
-          class="mt-2 rounded-xl bg-zinc-900 px-3 py-3 text-center text-sm font-semibold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+          class="mt-2 rounded-xl border border-zinc-900 bg-zinc-900 px-3 py-3 text-center text-sm font-semibold text-white transition hover:bg-zinc-800 dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
         >
           {currentLang === "de" ? "Jetzt anrufen" : "Chiama ora"}
         </a>
@@ -130,9 +148,47 @@ const withBase = (href: string) => {
       const panel = document.getElementById("mobileNav");
       if (!btn || !panel) return;
 
+      panel.classList.add("opacity-0", "-translate-y-1", "pointer-events-none");
+      panel.setAttribute("aria-hidden", "true");
+
+      let isOpen = false;
+      let closeTimer;
+
+      const openMenu = () => {
+        if (closeTimer) {
+          clearTimeout(closeTimer);
+          closeTimer = undefined;
+        }
+        panel.classList.remove("hidden");
+        requestAnimationFrame(() => {
+          panel.classList.remove("opacity-0", "-translate-y-1", "pointer-events-none");
+          panel.classList.add("opacity-100", "translate-y-0", "pointer-events-auto");
+        });
+        isOpen = true;
+        btn.setAttribute("aria-expanded", "true");
+        panel.setAttribute("aria-hidden", "false");
+      };
+
+      const closeMenu = () => {
+        panel.classList.remove("opacity-100", "translate-y-0", "pointer-events-auto");
+        panel.classList.add("opacity-0", "-translate-y-1", "pointer-events-none");
+        closeTimer = window.setTimeout(() => {
+          panel.classList.add("hidden");
+        }, 200);
+        isOpen = false;
+        btn.setAttribute("aria-expanded", "false");
+        panel.setAttribute("aria-hidden", "true");
+      };
+
       btn.addEventListener("click", () => {
-        const isHidden = panel.classList.toggle("hidden") === false; // false => now visible
-        btn.setAttribute("aria-expanded", String(isHidden));
+        if (isOpen) closeMenu();
+        else openMenu();
+      });
+
+      panel.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (isOpen) closeMenu();
+        });
       });
     })();
   </script>
